@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SCAPE | Scenario-Conditioned Simulation-Augmented Policy Evaluation</title>
+  <meta name="description" content="SCAPE predicts scenario-conditioned real-world policy performance with calibrated uncertainty from limited paired sim-and-real evaluations and large-scale simulation rollouts.">
+  <meta property="og:title" content="SCAPE: Scenario-Conditioned Simulation-Augmented Policy Evaluation">
+  <meta property="og:description" content="Scenario-level real-world policy performance prediction from limited paired sim-and-real data and abundant simulation.">
+  <meta property="og:image" content="static/images/teaser.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <h1><span class="name">SCAPE</span></h1>
+    <p class="subtitle">Scenario-Conditioned Simulation-Augmented Policy Evaluation</p>
+    <div class="venue">CoRL 2026</div>
+
+    <p class="authors">
+      <span>Dijie Zhu<sup>1</sup></span>
+      <span>Seunghun Oh<sup>1,2</sup></span>
+      <span>Ruopeng Huang<sup>1,3</sup></span>
+      <span>Zhiyu Huang<sup>1,4</sup></span>
+      <span>Jiaqi Ma<sup>1</sup></span>
+      <span>Chen Tang<sup>1</sup></span>
+    </p>
+    <p class="affiliations">
+      <span><sup>1</sup>University of California, Los Angeles</span>
+      <span><sup>2</sup>Seoul National University</span>
+      <span><sup>3</sup>University of Southern California</span>
+      <span><sup>4</sup>North Carolina State University</span>
+    </p>
+
+    <div class="buttons">
+      <!-- TODO: replace with the arXiv / proceedings link -->
+      <a class="btn" href="#" id="paper-link">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H6zM14 3.5V8h4.5zM8 12h8v1.6H8zm0 3.2h8v1.6H8zm0 3.2h5v1.6H8z"/></svg>
+        Paper
+      </a>
+      <a class="btn" href="https://github.com/LAB_ORG/scape">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>
+        Code
+      </a>
+      <a class="btn" href="#bibtex">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v2H4zm0 4h10v2H4zm0 4h16v2H4zm0 4h10v2H4z"/></svg>
+        BibTeX
+      </a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="wrap">
+    <figure>
+      <img src="static/images/teaser.png" alt="Overview of SCAPE: few paired real-sim samples and large-scale simulation data are combined to predict scenario-conditioned target performance with an uncertainty band, revealing reliable and risky scenarios that an average metric hides.">
+      <figcaption>SCAPE combines limited paired sim-and-real data with large-scale simulation to predict scenario-conditioned real-world performance with calibrated uncertainty, revealing scenario-specific failures that aggregate metrics hide.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="abstract">
+  <div class="wrap">
+    <h2>Abstract</h2>
+    <div class="lead">
+      <p>Reliable performance evaluation is a central bottleneck for deploying robot-learning policies in real-world conditions. Real-world testing produces faithful evaluation but is costly and difficult to scale, whereas simulation-based testing is easy to scale but inevitably biased due to the sim-to-real gap. Neither source alone is sufficient for scalable and reliable policy evaluation. This motivates simulation-augmented policy evaluation, which combines limited real-world rollouts with abundant simulation proxies for sample-efficient performance estimation. Yet, existing methods focus on estimating performance averaged over initial conditions and deployment settings. By construction, such population-level averages collapse scenario-specific variation, providing limited information about when and where a policy can be safely deployed.</p>
+      <p>To address this limitation, we propose <b>SCAPE</b>, a scenario-conditioned simulation-augmented policy evaluation framework that instead predicts scenario-conditioned real-world policy performance from limited paired sim-and-real evaluation samples and large-scale simulation-based testing rollouts. SCAPE corrects the sim-to-real bias in the simulation labels before using them to train the prediction model, and calibrates the prediction uncertainty through conformal prediction. We validate SCAPE on two embodied task domains, autonomous driving and quadruped velocity tracking. In sim-to-sim settings, it reduces the scenario-level performance prediction error by 4.9%/34.7% (driving) and 14.5%/27.7% (quadruped) relative to scene-conditioned neural baselines and aggregate statistical baselines on average. We also validate SCAPE for evaluating a velocity-tracking policy deployed on a physical Unitree Go2. In addition, SCAPE improves testing sample-efficiency, produces narrower calibrated prediction intervals, enhances generalization to out-of-distribution scenarios, and unlocks fine-grained deployment strategies.</p>
+    </div>
+  </div>
+</section>
+
+<section id="method">
+  <div class="wrap">
+    <h2>Method</h2>
+    <div class="lead">
+      <p>SCAPE adopts a <b>correction-before-augmentation</b> principle. Instead of naively mixing faithful real-world labels with biased simulation labels, it first learns how simulation outcomes relate to real-world outcomes from a small paired set, uses this to debias abundant simulation-only rollouts, and then trains a scenario-conditioned performance predictor that needs no simulator at deployment.</p>
+    </div>
+    <figure>
+      <img src="static/images/method.png" alt="SCAPE pipeline: a correction model trained on paired data produces corrected labels for simulation-only data; a scenario-conditioned predictor is trained on real and corrected labels; split conformal calibration yields prediction intervals.">
+    </figure>
+    <div class="steps">
+      <div class="step sim">
+        <b>1) Simulation correction</b>
+        <p>A correction model g<sub>&phi;</sub>(x, s) &asymp; E[R | X=x, S=s] is trained on paired data and converts every simulation-only rollout into a corrected real-world label.</p>
+      </div>
+      <div class="step">
+        <b>2) Performance prediction</b>
+        <p>A scenario-conditioned predictor f<sub>&theta;</sub>(x) &asymp; E[R | X=x] is trained on real labels plus corrected simulation labels, using the scenario context alone.</p>
+      </div>
+      <div class="step">
+        <b>3) Calibration</b>
+        <p>Split conformal prediction on a held-out set wraps each prediction in an interval with finite-sample marginal coverage, supporting certify, reject, or test-further decisions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="setup">
+  <div class="wrap">
+    <h2>Experimental Domains</h2>
+    <div class="lead">
+      <p>We evaluate SCAPE on <b>autonomous driving</b> with three nuPlan planners (Urban Driver, Vector, Simple Vector), where the surrogate comes from open-loop evaluation with non-reactive agents and the target from closed-loop evaluation with reactive agents, and on <b>quadruped velocity tracking</b>, in both Sim2Sim and Sim2Real with a physical Unitree Go2, where paired real-sim scenes are reconstructed with a real-to-sim pipeline.</p>
+    </div>
+    <figure>
+      <img src="static/images/paired.png" alt="Paired sample construction: nuPlan closed-loop versus open-loop rollouts of the same scenario, and a real Go2 rollout next to its reconstructed simulation rollout.">
+      <figcaption>Paired sample construction in (a) nuPlan and (b) quadruped experiments.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="results">
+  <div class="wrap">
+    <h2>Results</h2>
+
+    <div class="stats">
+      <div class="stat"><div class="num">4.9% / 34.7%</div><div class="label">lower prediction error on nuPlan vs. neural / aggregate baselines</div></div>
+      <div class="stat"><div class="num">14.5% / 27.7%</div><div class="label">lower prediction error on quadruped Sim2Sim vs. neural / aggregate baselines</div></div>
+      <div class="stat"><div class="num">20&ndash;60%</div><div class="label">fewer paired labels to match the strongest baseline's full-budget accuracy on nuPlan</div></div>
+      <div class="stat"><div class="num">6 / 6</div><div class="label">metric settings where SCAPE gives the narrowest conformal intervals</div></div>
+    </div>
+
+    <h3>Scenario-level prediction across paired-data budgets</h3>
+    <p>SCAPE is the only surrogate-augmented method that consistently improves on R-Only across paired-data fractions and metrics, while naive mixing (RS-Mix) and neural PPI (PPI-NN) often fail to benefit from biased simulation labels.</p>
+    <figure>
+      <img src="static/images/results_iid.png" alt="Test loss versus fraction of paired data for nuPlan Urban Driver metrics and quadruped velocity and yaw-rate tracking; SCAPE has the lowest loss across fractions.">
+      <figcaption>Test loss vs. fraction of paired data on nuPlan Urban Driver (a&ndash;d) and quadruped Sim2Sim (e&ndash;f). Mean &plusmn; standard error over 10 seeds.</figcaption>
+    </figure>
+
+    <h3>Sim2Real on a physical Unitree Go2</h3>
+    <p>On real-world rollouts, SCAPE achieves the lowest error on both targets, reducing error by 11.3% on velocity and 8.7% on yaw-rate tracking compared with the strongest baseline.</p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Test MAE (&times;10<sup>&minus;3</sup>)</th><th>MC</th><th>CV</th><th>PPI</th><th>R-Only</th><th>RS-Mix</th><th>PPI-NN</th><th>SCAPE</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Velocity</td><td>16.55&plusmn;0.96</td><td>17.07&plusmn;0.86</td><td>26.51&plusmn;1.52</td><td>13.29&plusmn;0.76</td><td>16.92&plusmn;0.99</td><td>19.16&plusmn;1.79</td><td><b>11.79&plusmn;0.70</b></td></tr>
+          <tr><td>Yaw rate</td><td>5.24&plusmn;0.41</td><td>5.48&plusmn;0.41</td><td>6.86&plusmn;0.56</td><td>5.16&plusmn;0.41</td><td>6.22&plusmn;0.47</td><td>5.37&plusmn;0.45</td><td><b>4.71&plusmn;0.32</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Surrogate scaling and out-of-distribution generalization</h3>
+    <p>SCAPE keeps improving as more cheap surrogate data is added, whereas RS-Mix degrades. When a city is held out from paired training, adding surrogate-only data from that city reduces SCAPE's loss by 4.8% and recovers 95.3% of full-training performance, without any target labels from the held-out city.</p>
+    <figure>
+      <img src="static/images/results_ood_surrogate.png" alt="Left: city-level OOD results where SCAPE with OOD surrogate-only data approaches in-distribution performance. Right: test loss versus surrogate fraction, where SCAPE keeps improving.">
+      <figcaption>Left: city-level OOD generalization. Right: test loss vs. surrogate-only data fraction at full paired data (nuPlan Urban Driver).</figcaption>
+    </figure>
+
+    <h3>Scenario-conditioned deployment</h3>
+    <p>Used as a router that selects the predicted best planner per scenario, SCAPE achieves the best selected performance on all four metrics, improving over scenario-conditioned and aggregate-mean baselines by 1.67% and 6.47% on average. Aggregate estimators route every scenario to the best-average planner and mask rare failures.</p>
+    <figure>
+      <img src="static/images/results_selection.png" alt="Planner selection accuracy and selected performance for each evaluator on four nuPlan metrics; SCAPE yields the best selected performance.">
+      <figcaption>Evaluator-guided planner selection on nuPlan at full paired data.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="bibtex">
+  <div class="wrap">
+    <h2>BibTeX</h2>
+<pre class="bibtex">@inproceedings{zhu2026scape,
+  title     = {{SCAPE}: Scenario-Conditioned Simulation-Augmented Policy Evaluation},
+  author    = {Zhu, Dijie and Oh, Seunghun and Huang, Ruopeng and Huang, Zhiyu and Ma, Jiaqi and Tang, Chen},
+  booktitle = {Conference on Robot Learning (CoRL)},
+  year      = {2026}
+}</pre>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    Page template inspired by <a href="https://nerfies.github.io">Nerfies</a>.
+  </div>
+</footer>
+
+</body>
+</html>
