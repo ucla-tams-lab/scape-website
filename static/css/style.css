@@ -308,3 +308,56 @@ footer { margin-top: 24px; }
   section > .wrap { border: 0; box-shadow: none; }
   .hero h1 .name, .hero .subtitle { background: none; color: #1f4e79; }
 }
+
+/* ---------- reference-style academic masthead ---------- */
+header.hero {
+  padding: 64px 0 24px;
+  font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+}
+.hero > .wrap { max-width: 1100px; }
+.hero h1 {
+  font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(2rem, 4.1vw, 3rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  margin: 0 0 32px;
+  color: #1f4e79;
+  background: linear-gradient(110deg, #173b63 10%, #2774ae 70%, #438bb8 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero .authors { font-size: 1.2rem; line-height: 1.55; margin-bottom: 12px; }
+.hero .authors span { margin: 0 6px; }
+.hero .affiliations { font-size: 1rem; margin-bottom: 14px; }
+.hero .affiliations span { margin: 0 5px; }
+.hero .venue { margin-bottom: 22px; }
+.hero .buttons { gap: 16px; }
+.hero .btn {
+  background: rgba(255, 255, 255, 0.35);
+  color: #1a2433;
+  border: 1px solid #d9e1e9;
+  padding: 12px 26px;
+  font-size: 1rem;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.hero .btn:hover { background: #e6eff8; border-color: #a9bfd3; }
+#particle-background { overflow: hidden; }
+#particle-background canvas { display: block; width: 100%; height: 100%; }
+
+@media (max-width: 600px) {
+  header.hero { padding: 38px 0 18px; }
+  .hero h1 { font-size: clamp(1.8rem, 7.2vw, 2.4rem); margin-bottom: 24px; }
+  .title-break, .author-break { display: none; }
+  .hero .authors { font-size: 1rem; line-height: 1.8; }
+  .hero .authors span { display: inline-block; margin: 0 4px; }
+  .hero .affiliations { line-height: 1.8; }
+  .hero .btn { padding: 10px 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero .btn { transition: none; }
+}
+@media print {
+  .hero h1 { background: none; -webkit-text-fill-color: #1f4e79; }
+}
