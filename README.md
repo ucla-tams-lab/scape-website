@@ -16,7 +16,7 @@
 
 <p align="center">
   <a href="https://ucla-tams-lab.github.io/scape-website/">
-    <img src="static/images/teaser.png" alt="SCAPE uses limited paired real–simulation evaluations and abundant simulation to predict scenario-level performance with calibrated uncertainty." width="85%">
+    <img src="assets/teaser.png" alt="SCAPE uses limited paired real–simulation evaluations and abundant simulation to predict scenario-level performance with calibrated uncertainty." width="85%">
   </a>
 </p>
 <p align="center"><b><a href="https://ucla-tams-lab.github.io/scape-website/">Explore the method and full results on the project page</a></b></p>
@@ -33,11 +33,17 @@ The method follows **correction before augmentation**: learn a scenario-dependen
 
 ## Repository guide
 
-The project is organized into **three repositories**:
+This repository is organized into **two branches**:
+
+| Branch | Purpose |
+| --- | --- |
+| **`main` (here)** | **Project overview.** README, presentation assets, and links to the implementation. |
+| [**`gh-pages`**](https://github.com/ucla-tams-lab/scape-website/tree/gh-pages) | **Project website.** Published site source and website assets, served by GitHub Pages. |
+
+The experiment code is maintained in the following repositories:
 
 | Repository | Purpose |
 | --- | --- |
-| **`scape-website` (here)** | **Project overview.** Website, paper figures, and links to the implementation. |
 | [**`scape`**](https://github.com/ucla-tams-lab/scape) | **Evaluation pipeline.** SCAPE training, neural and statistical baselines, and prediction, conformal, OOD, and planner-selection evaluation. |
 | [**`scape-locomotion`**](https://github.com/ucla-tams-lab/scape-locomotion) | **Locomotion experiments.** Go2 data generation for Sim2Sim and Sim2Real evaluation. |
 
@@ -46,16 +52,16 @@ The project is organized into **three repositories**:
 <details>
 <summary><b>Website maintenance and local preview</b></summary>
 
-This is a static website served by GitHub Pages from the root of the `main` branch.
+This is a static website served by GitHub Pages from the root of the [`gh-pages` branch](https://github.com/ucla-tams-lab/scape-website/tree/gh-pages).
 
-- [`index.html`](index.html): page content, paper links, and BibTeX.
-- [`static/images/`](static/images/): teaser, method, and result figures.
-- [`static/css/style.css`](static/css/style.css): page styling.
+- [`index.html`](https://github.com/ucla-tams-lab/scape-website/blob/gh-pages/index.html): page content, paper links, and BibTeX.
+- [website images](https://github.com/ucla-tams-lab/scape-website/tree/gh-pages/static/images): teaser, method, and result figures.
+- [stylesheet](https://github.com/ucla-tams-lab/scape-website/blob/gh-pages/static/css/style.css): page styling.
 
 Preview locally:
 
 ```bash
-git clone https://github.com/ucla-tams-lab/scape-website.git
+git clone --branch gh-pages --single-branch https://github.com/ucla-tams-lab/scape-website.git
 cd scape-website
 python3 -m http.server 8000
 ```
