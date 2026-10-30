@@ -29,7 +29,13 @@ This repository hosts the **official project website for SCAPE**. For evaluator 
 
 Real-world testing is costly, simulation is biased, and average performance can hide scenario-specific failures. **SCAPE predicts real-world policy performance for each scenario** by combining limited paired real–simulation evaluations with abundant simulation-only data.
 
-The method follows **correction before augmentation**: learn a scenario-dependent correction, use corrected simulation labels to train an evaluator, and calibrate its uncertainty with held-out target data. At inference, the evaluator needs only the scenario context.
+| | Common approaches | SCAPE |
+| --- | --- | --- |
+| **Evaluation target** | One population average (MC, CV, PPI) | Performance for each scenario |
+| **Training data** | Limited real-world labels (R-Only) | Real labels + abundant corrected simulation labels |
+| **Simulation bias** | Directly mix real and simulation labels (RS-Mix) | Correct scenario-dependent bias **before augmentation** |
+
+Uncertainty is calibrated with held-out real data using conformal prediction. At inference, only the scenario context is needed.
 
 ## Repository guide
 
