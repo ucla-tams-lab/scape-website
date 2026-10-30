@@ -35,7 +35,6 @@ Real-world testing is costly, simulation is biased, and average performance can 
 | **Training data** | Limited real-world labels (R-Only) | Real labels + abundant corrected simulation labels |
 | **Simulation bias** | Directly mix real and simulation labels (RS-Mix) | Correct scenario-dependent bias **before augmentation** |
 
-Uncertainty is calibrated with held-out real data using conformal prediction. At inference, only the scenario context is needed.
 
 ## Repository guide
 
