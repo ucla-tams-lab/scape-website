@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="static/css/style.css">
 </head>
 <body>
+<canvas id="particle-background" aria-hidden="true"></canvas>
 
 <header class="hero">
   <div class="wrap">
@@ -181,5 +182,71 @@
   </div>
 </footer>
 
+<script>
+// A quiet decorative layer; no dependencies or pointer tracking.
+(() => {
+  const canvas = document.getElementById('particle-background');
+  const context = canvas.getContext('2d');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (!context) return;
+
+  let width = 0, height = 0, particles = [], frame = 0, lastTime = 0;
+  function draw(delta = 0) {
+    context.clearRect(0, 0, width, height);
+    particles.forEach(particle => {
+      particle.y -= particle.speed * delta;
+      particle.x += particle.drift * delta;
+      if (particle.y < -4) particle.y = height + 4;
+      if (particle.x < -4) particle.x = width + 4;
+      if (particle.x > width + 4) particle.x = -4;
+      context.beginPath();
+      context.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+      context.fillStyle = `rgba(39, 116, 174, ${particle.opacity})`;
+      context.fill();
+    });
+  }
+  function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    const ratio = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(width * ratio);
+    canvas.height = Math.round(height * ratio);
+    context.setTransform(ratio, 0, 0, ratio, 0, 0);
+    const count = Math.min(85, Math.max(24, Math.round(width * height / 16000)));
+    particles = Array.from({ length: count }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      radius: 0.7 + Math.random() * 0.9,
+      opacity: 0.10 + Math.random() * 0.14,
+      speed: 2 + Math.random() * 4,
+      drift: (Math.random() - 0.5) * 2
+    }));
+    draw();
+  }
+  function tick(time) {
+    frame = 0;
+    if (document.hidden || reducedMotion.matches) return;
+    // Limit redraws to 30 fps and avoid jumps after a background tab resumes.
+    const elapsed = time - lastTime;
+    if (elapsed >= 1000 / 30) {
+      draw(lastTime ? Math.min(elapsed / 1000, 0.1) : 0);
+      lastTime = time;
+    }
+    frame = requestAnimationFrame(tick);
+  }
+  function syncMotion() {
+    cancelAnimationFrame(frame);
+    frame = 0;
+    lastTime = 0;
+    if (!document.hidden && !reducedMotion.matches) frame = requestAnimationFrame(tick);
+    else draw();
+  }
+  window.addEventListener('resize', resize, { passive: true });
+  document.addEventListener('visibilitychange', syncMotion);
+  reducedMotion.addEventListener('change', syncMotion);
+  resize();
+  syncMotion();
+})();
+</script>
 </body>
 </html>
